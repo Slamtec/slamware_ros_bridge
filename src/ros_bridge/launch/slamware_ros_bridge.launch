@@ -1,0 +1,7 @@
+<launch>
+    <node name="slamware_ros_bridge_node" pkg="slamware_ros_bridge" type="slamware_ros_bridge_node" output="screen"></node>
+    <param name = "scan_sub_topic"             value = "scan"/>
+    <param name = "odometry_sub_topic"         value = "odom"/>
+    <param name = "is_accumulated_odometry"    value = "true"/>
+    <param name = "velocity_pub_topic"         value = "cmd_vel"/>
+</launch>

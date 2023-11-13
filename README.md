@@ -1,2 +1,8 @@
 # slamware_ros_bridge
-A bridge ROS Node to connect slamware and third-party ROS Node
+### ros_bridge
+
+An adapter between third-party ros node and slamware, arun as ros node.
+
+### slamware_sdk
+
+header files and library files of slamware 
