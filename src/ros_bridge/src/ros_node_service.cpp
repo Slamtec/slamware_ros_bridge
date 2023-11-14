@@ -40,7 +40,7 @@ namespace rp { namespace slamware { namespace utils {
         logger.info_out("ros node service thread begin, lidar topic:%s, odom topic:%s, velocity command topic:%s", 
             config_.scan_sub_topic.c_str(),config_.odometry_sub_topic.c_str(), config_.velocity_pub_topic.c_str());
 
-        rosNode_->subscribe(config_.scan_msg_topic, 1, MsgType::MsgTypeScan);
+        rosNode_->subscribe(config_.scan_sub_topic, 1, MsgType::MsgTypeScan);
         if(config_.is_accumulated_odometry){
             rosNode_->subscribe(config_.odometry_sub_topic, 10, MsgType::MsgTypeOdometry);
         }
@@ -82,7 +82,7 @@ namespace rp { namespace slamware { namespace utils {
         msg.angular.x = 0.0f;
         msg.angular.y = 0.0f;
         msg.angular.z = request.omega();
-        rosNode_->template publish<geometry_msgs::Twist>(msg, MsgType::MsgTypeOdometry);
+        rosNode_->template publish<geometry_msgs::Twist>(msg, MsgType::MsgTypeVelocity);
     }
 
     template <typename RosHandlerT>
