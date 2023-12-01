@@ -37,6 +37,7 @@ namespace rpos { namespace system { namespace diagnosis {
 
     public:
         MessageWriteStream(boost::shared_ptr<io::IStream> metadataStream, boost::shared_ptr<io::IStream> messageStream);
+        MessageWriteStream(const resume_data_t& resumeDat, boost::shared_ptr<io::IStream> metadataStream, boost::shared_ptr<io::IStream> messageStream);
         explicit MessageWriteStream(boost::shared_ptr<io::IStream> underlyingStream);
         MessageWriteStream(const resume_data_t& resumeDat, boost::shared_ptr<io::IStream> underlyingStream);
 

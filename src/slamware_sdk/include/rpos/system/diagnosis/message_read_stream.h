@@ -31,6 +31,7 @@ namespace rpos { namespace system { namespace diagnosis {
         std::string nextMessageType() const;
         rpos::message::message_timestamp_t nextMessageTimestamp() const;
         bool isNextMessageOfType(const std::type_index& typeIndex) const;
+        size_t getPayloadLength() const { return upcomingMessageLength_ - sizeof(upcomingTimestamp_);}
 
         template < class PayloadT >
         bool isNextMessage() const

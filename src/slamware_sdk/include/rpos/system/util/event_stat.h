@@ -19,8 +19,10 @@ namespace rpos { namespace system { namespace util {
         void clear()
         {
             startTime_ = lastTime_ = boost::chrono::high_resolution_clock::now();
+            periodStartTime_ = startTime_;
             lastDuration_ = boost::chrono::milliseconds(0);
             occurred_ = 0;
+            periodOccurred_ = 0;
             sum_ = T();
             last_ = T();
         }
@@ -32,6 +34,7 @@ namespace rpos { namespace system { namespace util {
             lastTime_ = now;
 
             occurred_++;
+            periodOccurred_++;
             sum_ += v;
             last_ = v;
         }
@@ -61,13 +64,19 @@ namespace rpos { namespace system { namespace util {
         {
             return boost::chrono::duration_cast<boost::chrono::microseconds>(lastDuration()).count();
         }
-
-        double lastFrequency() const
+         
+        double lastFrequency()
         {
-            if (!occurred_)
+            if (!periodOccurred_)
                 return -1;
 
-            return 1000000.0 / lastDurationInUs();
+            auto durationInUs = boost::chrono::duration_cast<boost::chrono::microseconds>(lastTime_ - periodStartTime_).count(); 
+            if (!durationInUs)
+                return -1;
+            double freq = ((double)periodOccurred_ / durationInUs) * 1000000;
+            periodOccurred_ = 0;
+            periodStartTime_ = lastTime_;
+            return freq;
         }
 
         double averageFrequency() const
@@ -94,9 +103,11 @@ namespace rpos { namespace system { namespace util {
     private:
         boost::chrono::high_resolution_clock::time_point startTime_;
         boost::chrono::high_resolution_clock::time_point lastTime_;
+        boost::chrono::high_resolution_clock::time_point periodStartTime_;
         boost::chrono::high_resolution_clock::duration lastDuration_;
 
         size_t occurred_;
+        size_t periodOccurred_;
         T sum_;
         T last_;
     };

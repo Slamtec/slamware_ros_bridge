@@ -1,7 +1,7 @@
 # slamware_ros_bridge
 ### ros_bridge
 
-An adapter between third-party ros node and slamware, arun as ros node.
+An adapter between third-party ros node and slamware, run as ros node.
 
 ### slamware_sdk
 
@@ -36,3 +36,11 @@ source devel/setup.bash
 roslaunch slamware_ros_bridge slamware_ros_bridge.launch
 ```
 
+
+
+### Topics
+
+| Topic名称 | 作用         | 发布者     | 数据类型             |
+| --------- | ------------ | ---------- | -------------------- |
+| odom      | 底盘运动里程 | 第三方系统 | nav_msgs::Odometry   |
+| cmd_vel   | 速度控制命令 | slamwared  | geometry_msgs::Twist |
